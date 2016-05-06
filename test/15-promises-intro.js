@@ -1,20 +1,21 @@
 import test from 'ava';
 
-test.skip('Creating Promises with `Promise.resolve`', t => {
+test('Creating Promises with `Promise.resolve`', t => {
   // `Promise.resolve(x)` creates a Resolved Promise holding `x`
 
-  let p = __; // <-- Create a Promise that passes the test
+  let p = Promise.resolve(42); // <-- Create a Promise that passes the test
   return p.then(val => t.is(val, 42));
 });
 
-test.skip('Creating Promises with `Promise.reject`', t => {
+test('Creating Promises with `Promise.reject`', t => {
   // `Promise.reject(x)` creates a Resolved Promise with "reason" `x`.
 
-  let p = __; // <-- Create a Promise that passes the test
+  let x = 'boom'
+  let p = Promise.reject(x); // <-- Create a Promise that passes the test
   return p.catch(reason => t.is(reason, 'boom'));
 });
 
-test.skip('Creating Promises with `new Promise(fn)`', t => {
+test('Creating Promises with `new Promise(fn)`', t => {
   // `new Promise` creates a new Pending Promise
   // Calling its `resolve` or `reject` callbacks has an effect similar to above.
 
@@ -22,6 +23,9 @@ test.skip('Creating Promises with `new Promise(fn)`', t => {
     return new Promise((resolve, reject) => {
       // Your Code Here
       // Resolve the promise to `x` after 50 ms.
+      setTimeout( function() {
+        resolve(x)
+      }, 50);
     });
   }
 

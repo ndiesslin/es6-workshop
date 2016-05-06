@@ -1,6 +1,6 @@
 import test from 'ava';
 
-test.skip('`var` is function-scoped', t => {
+test('`var` is function-scoped', t => {
   // In JavaScript, `var` bindings are scoped at the function level.
   //
   // No matter where you declare a `var`, it applies everywhere in the function.
@@ -10,10 +10,10 @@ test.skip('`var` is function-scoped', t => {
     var x = 2;   t.is(x, 2);
   }
 
-  t.is(x, ___);
+  t.is(x, 2);
 });
 
-test.skip('`let` and `const` are block-scoped', t => {
+test('`let` and `const` are block-scoped', t => {
   // ES6 introduces `let` and `const` as block-scoped alternatives to `var`.
   //
   // Declarations are only valid within the nearest block.
@@ -23,7 +23,7 @@ test.skip('`let` and `const` are block-scoped', t => {
     let x = 2;   t.is(x, 2);
   }
 
-  t.is(x, ___);
+  t.is(x, 1);
 });
 
 // ============================================================================

@@ -1,6 +1,6 @@
 import test from 'ava';
 
-test.skip('Review: Property access on objects', t => {
+test('Review: Property access on objects', t => {
   // Object properties can be any string
 
   let person = {
@@ -16,11 +16,11 @@ test.skip('Review: Property access on objects', t => {
 
   // You can also use variables with the `[string]` notation.
 
-  let key = __;
+  let key = ['twitter'];
   t.is(person[key], '@callahad');
 
   // Or even evaluate expressions.
-  t.is(person['full' + ' ' + __], 'Dan Callahan');
+  t.is(person['full' + ' ' + 'name'], 'Dan Callahan');
 });
 
 test.skip('Objects gained `[]` syntax for generating key names', t => {

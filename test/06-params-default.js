@@ -1,6 +1,6 @@
 import test from 'ava';
 
-test.skip('Functions can have default arguments', t => {
+test('Functions can have default arguments', t => {
   // We used to have to explicitly check for undefined:
 
   function foo(arr, sep) {
@@ -25,8 +25,8 @@ test.skip('Functions can have default arguments', t => {
 
   // Write a function, greet, which returns the strings below:
 
-  function greet(___) {
-    return `__`;
+  function greet(thing = 'world') {
+    return `Hello, ${thing}!`;
   }
 
   // Passing specific parameters works
@@ -38,7 +38,7 @@ test.skip('Functions can have default arguments', t => {
   t.is(greet(undefined), 'Hello, world!');
 });
 
-test.skip('Default parameters get evaluated every time they are needed', t => {
+test('Default parameters get evaluated every time they are needed', t => {
   // Every time a default value is used, it is freshly evaluated.
   function getTime(when = Date.now()) {
     return when;
@@ -59,16 +59,16 @@ test.skip('Default parameters get evaluated every time they are needed', t => {
 
   // Does each invocation get its own `new Array()`?
 
-  t.deepEqual(append('foo'), __);
-  t.deepEqual(append('bar'), __);
-  t.deepEqual(append('bar', append('foo')), __);
+  t.deepEqual(append('foo'), ['foo']);
+  t.deepEqual(append('bar'), ['bar']);
+  t.deepEqual(append('bar', append('foo')), ['foo', 'bar']);
 
   // What if we pass our own array? Note that this ignores the return value...
   let a = new Array();
   append('foo', a);
   append('bar', a);
   append('baz', a);
-  t.deepEqual(a, __); // <-- Fill in the blank
+  t.deepEqual(a, ['foo', 'bar', 'baz']); // <-- Fill in the blank
 });
 
 // ============================================================================

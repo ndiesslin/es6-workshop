@@ -1,6 +1,6 @@
 import test from 'ava';
 
-test.skip('`this` is resolved based on calling context', t => {
+test('`this` is resolved based on calling context', t => {
   let x = {
     value: 789,
     getValue: function() { return this.value; }
@@ -10,16 +10,16 @@ test.skip('`this` is resolved based on calling context', t => {
     value: 123
   };
 
-  t.is(x.getValue(), __); // <-- Context is the `x` object
+  t.is(x.getValue(), 789); // <-- Context is the `x` object
 
-  t.is(x.getValue.call(y), __); // <-- Rebinds context to the `y` object
+  t.is(x.getValue.call(y), 123); // <-- Rebinds context to the `y` object
 
   let yGetter = x.getValue.bind(y); // <-- Returns a function pre-bound to `y`
 
-  t.is(yGetter(), __);
+  t.is(yGetter(), 123);
 });
 
-test.skip('`=>` functions do not have their own `this` value', t => {
+test('`=>` functions do not have their own `this` value', t => {
   let x = {
     value: 789,
     getValue: () => this.value // <-- Only this line changed
@@ -38,10 +38,10 @@ test.skip('`=>` functions do not have their own `this` value', t => {
   // ...but arrow functions don't even create a `this` to be modified.
 
   let yGetter = x.getValue.bind(y);
-  t.throws(yGetter, __);
+  t.throws(yGetter, /Cannot read property 'value' of undefined/);
 });
 
-test.skip('`this` can still exist higher in the scope chain', t => {
+test('`this` can still exist higher in the scope chain', t => {
   function Container(x) {
     this.value = x;
     this.getValueInternal = () => this.value;
@@ -63,10 +63,10 @@ test.skip('`this` can still exist higher in the scope chain', t => {
   t.throws(x.getValueExternal); // <-- Doesn't have a `this` in its scope chain.
 
   let yGetter = x.getValueInternal.bind(y);
-  t.is(yGetter(), ___); // <-- Which context will this use? Why?
+  t.is(yGetter(), 789); // <-- Which context will this use? Why?
 });
 
-test.skip('Exercise: Use arrow functions instead of `var that = this`', t => {
+test('Exercise: Use arrow functions instead of `var that = this`', t => {
   // Developers sometimes use `var that = this` as a hack to access the `this`
   // value of an enclosing scope. Arrow functions avoid the problem altogether.
   //
@@ -83,7 +83,7 @@ test.skip('Exercise: Use arrow functions instead of `var that = this`', t => {
       that.aSum += value;
     });
 
-    this.values.forEach(__); // <-- Fill in the blank.
+    this.values.forEach((value) => this.bSum += value); // <-- Fill in the blank.
   }
 
   let x = new Container([1, 2, 3]);

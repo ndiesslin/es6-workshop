@@ -1,6 +1,6 @@
 import test from 'ava';
 
-test.skip('template literals are strings', t => {
+test('template literals are strings', t => {
   // Template literals use `` marks as quotes, and turn into regular strings.
 
   let a = "Hello, World";
@@ -16,7 +16,7 @@ test.skip('template literals are strings', t => {
   t.true(a === b && b === c);
 });
 
-test.skip('template literals have super powers', t => {
+test('template literals have super powers', t => {
   let who = 'World';
 
   let a = "Hello, ${who}";
@@ -30,40 +30,41 @@ test.skip('template literals have super powers', t => {
   t.true(a !== c);
 
   // What is `a`? What did `c` turn into?
-  t.is(a, __); // <-- Fill in the blank with single-quoted string
-  t.is(c, __); // <-- Fill in the blank with single-quoted string
+  t.is(a, 'Hello, ${who}'); // <-- Fill in the blank with single-quoted string
+  t.is(c, 'Hello, World'); // <-- Fill in the blank with single-quoted string
 });
 
-test.skip('template literals can span multiple lines', t => {
+test('template literals can span multiple lines', t => {
   // Unlike normal strings, template literals can run across several lines.
   // Try filling in the blank below, without using the `\n` escape character.
-  let x = `__`;
+  let x = `Hello,
+  world!`;
 
   t.is(x, 'Hello,\n  world!');
 });
 
-test.skip('template literals can compute arbitrary values', t => {
+test('template literals can compute arbitrary values', t => {
   // You can even evaluate arbitrary JavaScript inside `${ blocks }`.
 
   let what = 'hello, world';
 
-  let x = `I like shouting "${__}!"`;
+  let x = `I like shouting "${what.toUpperCase()}!"`;
   t.is(x, 'I like shouting "HELLO, WORLD!"');
 
   let a = 1;
   let b = 2;
-  t.is(`${__} + ${__} = ${__}`, '1 + 2 = 3')
+  t.is(`${a} + ${b} = ${a + b}`, '1 + 2 = 3')
 });
 
-test.skip('Exercise: Construct a complex string', t => {
+test('Exercise: Construct a complex string', t => {
   let conf= {
     name: 'MinneWebCon',
     year: '2016',
     keynotes: ['Denise Jacobs', 'Sara Wachter-Boettcher']
   }
 
-  let x = `In ${__}, ${__} had ${__} keynotes.`;
-  let y = `The speakers were: ${__}.`;
+  let x = `In ${conf.year}, ${conf.name} had ${conf.keynotes.length} keynotes.`;
+  let y = `The speakers were: ${conf.keynotes[0]}, ${conf.keynotes[1]}.`;
 
   t.is(x, 'In 2016, MinneWebCon had 2 keynotes.');
   t.is(y, 'The speakers were: Denise Jacobs, Sara Wachter-Boettcher.')

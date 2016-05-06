@@ -1,22 +1,22 @@
 import test from 'ava';
 
-test.skip('You can use `...name` to collect extra params into an array', t => {
+test('You can use `...name` to collect extra params into an array', t => {
   let sumArgs = (...nums) => nums.reduce((a, b) => a + b, 0);
 
-  t.is(sumArgs(1, 2, 3), __); // <-- Notice that I'm *not* passing an array.
+  t.is(sumArgs(1, 2, 3), 6); // <-- Notice that I'm *not* passing an array.
 });
 
-test.skip('You can use `...array` to explode an array into separate params', t => {
+test('You can use `...array` to explode an array into separate params', t => {
   let sumThree = (a, b, c) => a + b + c;
 
-  t.is(sumThree(1, 2, 3), __);
+  t.is(sumThree(1, 2, 3), 6);
 
   let args = [7, 8, 9];
 
-  t.is(sumThree(...args), __);
+  t.is(sumThree(...args), 24);
 });
 
-test.skip('Exercise: Use `...` to both spread and collect parameters', t => {
+test('Exercise: Use `...` to both spread and collect parameters', t => {
   // Number.parseInt takes two parameters: a string, and a base. For example:
 
   // Decimal is the default
@@ -33,8 +33,10 @@ test.skip('Exercise: Use `...` to both spread and collect parameters', t => {
   // Hint: Arrays have a `.map` method that applies a function to each element.
   //   e.g. `[1, 2, 3].map(x => x * 2)` returns `[2, 4, 6]`
 
-  function parsePairs(__) {
-    return ___;
+  function parsePairs(...string) {
+    //return string.map(string);
+    console.log(string) //TODO: figure out answer
+    return string.map(string => string.reduce((a, b) => a + b, 0))
   }
 
   let result = parsePairs(['99'], ['99', 10], ['ff', 16], ['77', 8], ['11', 2]);
